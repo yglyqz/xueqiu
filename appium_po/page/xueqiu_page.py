@@ -32,7 +32,7 @@ class XueqiuPage:
             if size >= 1:
                 self.driver.find_element_by_id("image_cancel").click()
             return size >= 1
-        #等待20s  每次1秒进行循环
+        #等待20s 每次1秒进行循环
         WebDriverWait(self.driver, 20, 1).until(click_cancel)
 
         self.driver.find_element_by_id("user_profile_icon")
