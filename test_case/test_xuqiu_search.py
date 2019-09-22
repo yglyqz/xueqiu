@@ -6,8 +6,7 @@ from hamcrest import *
 
 
 class Test_Xueqiu:
-    @classmethod
-    def setup_class(cls):
+    def setup_class(self):
         capabilities = {
             "platformName": "Android",
             "deviceName": "emulator-5554",
@@ -18,14 +17,14 @@ class Test_Xueqiu:
             "automationName": "UiAutomator2",
         }
 
-        cls.driver = webdriver.Remote("http://localhost:4723/wd/hub", capabilities)
-        cls.driver.implicitly_wait(10)
-        cls.driver.find_element_by_id("user_profile_icon")
+        self.driver = webdriver.Remote("http://localhost:4723/wd/hub", capabilities)
+        self.driver.implicitly_wait(10)
+        # cls.driver.find_element_by_id("image_cancel").click()
+        self.driver.find_element_by_id("user_profile_icon")
 
-    @classmethod
-    def teardown_class(cls):
+    def teardown_class(self):
         sleep(5)
-        cls.driver.quit()
+        self.driver.quit()
 
     # def setup(self):
     #     pass
