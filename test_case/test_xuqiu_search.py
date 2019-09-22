@@ -6,6 +6,7 @@ from appium.webdriver.common.mobileby import MobileBy
 from hamcrest import *
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class Test_Xueqiu:
@@ -76,26 +77,30 @@ class Test_Xueqiu:
                                           " contains(@resource-id, 'tab_name')]").click()
         self.driver.find_element_by_id("page_type_fund").click()
 
-        WebDriverWait(self.driver, 20, 1).until(lambda x:
+        WebDriverWait(self.driver, 10, 1).until(lambda x:
                                                 'WEBVIEW_com.xueqiu.android'
                                                 in self.driver.contexts)
         #等到'WEBVIEW_com.xueqiu.android'  出现时执行 webview的click
         #by_accessibility_id----->对应的字段是content-desc  报错
-        self.driver.find_element(MobileBy.ACCESSIBILITY_ID, '蛋卷基金安全开户').click()
-        # self.driver.find_element(MobileBy.XPATH, "//*[contains(@text,'蛋卷基金安全开户')]").click()
+        # self.driver.find_element(MobileBy.ACCESSIBILITY_ID, '蛋卷基金安全开户').click()
+        self.driver.find_element(MobileBy.XPATH, "//*[contains(@text,'蛋卷基金安全开户')]").click()
 
-        self.driver.switch_to.context('WEBVIEW_com.xueqiu.android')
+        # self.driver.switch_to.context('WEBVIEW_com.xueqiu.android')
 
-        WebDriverWait(self.driver, 20, 1).until(lambda x:
+        WebDriverWait(self.driver, 10, 1).until(lambda x:
                                                 '手机号'
                                                 in self.driver.page_source)
 
-        self.driver.find_element(By.NAME,"tel").send_keys('15711079511')
-        self.driver.find_element(By.NAME, "captcha").send_keys('1234')
-        self.driver.find_element(By.CSS_SELECTOR, '.dj-button').click()
+        self.driver.find_element(By.ID,"et_telephone").send_keys('15711079511')
+        self.driver.find_element(By.ID, "et_password").send_keys('1234')
 
-        assert '好的，知道了' in self.driver.page_source
+        self.driver.find_element(By.ID, 'vg_login_btn').click()
 
+        # toast断言
+        toast_element = ("xpath", "//*[contains(@text,'验证码已过期')]")
+
+        resurt = WebDriverWait(self.driver, 10, 0.1).until(EC.invisibility_of_element_located(toast_element))
+        assert resurt == True
 
 
 
