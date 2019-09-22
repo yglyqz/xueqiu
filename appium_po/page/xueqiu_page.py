@@ -28,10 +28,12 @@ class XueqiuPage:
         )
 
         def click_cancel():
-            if self.driver.find_element_by_id("image_cancel").is_displayed():
+            size = len(self.driver.find_element_by_id("image_cancel").is_displayed())
+            if size >= 1:
                 self.driver.find_element_by_id("image_cancel").click()
-            return len(self.driver.find_element_by_id("image_cancel").is_displayed()) >= 1
-        WebDriverWait(self.driver, 60).until(click_cancel)
+            return size >= 1
+        #等待20s  每次1秒进行循环
+        WebDriverWait(self.driver, 20, 1).until(click_cancel)
 
         self.driver.find_element_by_id("user_profile_icon")
 
