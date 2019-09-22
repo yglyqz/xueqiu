@@ -8,3 +8,4 @@ class TestSearch:
 
     def test_search_alibaba(self):
         assert 180 < self.xueqiu.goto_search().search("alibaba").select(0).get_price("BABA")
+

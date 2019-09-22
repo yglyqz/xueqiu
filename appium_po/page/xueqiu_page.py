@@ -4,6 +4,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 from appium_po.page.profile_page import ProfilePage
 from appium_po.page.search_page import SearchPage
+from appium_po.page.transaction_page import TransactionPage
 
 
 class XueqiuPage:
@@ -31,7 +32,8 @@ class XueqiuPage:
             size = len(self.driver.find_element_by_id("image_cancel").is_displayed())
             if size >= 1:
                 self.driver.find_element_by_id("image_cancel").click()
-            return size >= 1
+            else:
+                print("no displayed")
         #等待20s 每次1秒进行循环
         WebDriverWait(self.driver, 20, 1).until(click_cancel)
 
@@ -43,4 +45,8 @@ class XueqiuPage:
 
     def goto_profile(self):
         return ProfilePage()
+    
+    def goto_transaction(self):
+        self.driver.find_element_by_xpath("//*[@text='交易' and contains(@resource-id, 'tab_name')]").click()
+        return TransactionPage()
 
