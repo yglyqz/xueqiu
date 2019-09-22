@@ -12,9 +12,9 @@ class BaseDriver:
             "autoGrantPermissions": True,
         }
 
-        driver = webdriver.Remote("http://localhost:4723/wd/hub", capabilities)
+        self.driver = webdriver.Remote("http://localhost:4723/wd/hub", capabilities)
 
-        return driver
+        return self.driver
 
 
 if __name__ == '__main__':
